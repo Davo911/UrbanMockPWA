@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in Success</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#333333">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Check-in">
+    <link rel="apple-touch-icon" href="https://placehold.co/180x180/16a34a/ffffff?text=App">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the app */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #333333; /* Darker background */
+        }
+
+        /* Keyframes for the rotation animation */
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Applying the animation to the designated class */
+        .animate-spin-slow {
+            animation: rotate 10s linear infinite;
+        }
+
+        /* Class for the editable input fields */
+        .editable-input {
+            background-color: transparent;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center min-h-screen p-4 pb-28 sm:pb-0">
+
+    <!-- Background Layer -->
+    <div class="w-full max-w-sm flex-grow flex flex-col">
+        <header class="w-full text-center py-4">
+            <h1 class="text-xl font-semibold text-gray-400/50">Check in</h1>
+        </header>
+        <div class="flex-grow"></div> <!-- Spacer to push footer down -->
+    </div>
+    <footer class="w-full max-w-sm bg-[#202124] fixed bottom-0 sm:relative z-30">
+        <div class="flex justify-around items-center text-gray-400 py-3">
+            <div class="text-center cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <span class="text-xs">Venues</span>
+            </div>
+            <div class="text-center cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                <span class="text-xs">Classes</span>
+            </div>
+            <div class="text-center text-white cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                <span class="text-xs">Check-in</span>
+            </div>
+            <div class="text-center cursor-pointer">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <span class="text-xs">Profile</span>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Modal Layer -->
+    <div class="fixed inset-0 z-10 flex items-center justify-center p-4 pointer-events-none">
+        <!-- Background placeholder image -->
+        <img src="https://placehold.co/300x150/ffffff/cccccc?text=+" class="absolute w-[280px] h-[140px] object-cover rounded-lg opacity-20" alt="background pattern"/>
+        <!-- The overlay -->
+        <div class="absolute inset-0 bg-black/10"></div>
+        
+        <!-- The actual modal content (the card stack) -->
+        <div class="relative w-full max-w-sm pointer-events-auto">
+
+            <!-- Profile picture and decorative elements container -->
+            <div class="relative mb-[-70px] z-20 flex justify-center items-center h-[140px]">
+                <!-- Animated rotating border -->
+                <div class="absolute w-[140px] h-[140px] animate-spin-slow">
+                    <svg width="140" height="140" viewBox="0 0 140 140">
+                        <circle cx="70" cy="70" r="65" fill="none" stroke="white" stroke-width="4" stroke-dasharray="30 10" stroke-linecap="round" />
+                    </svg>
+                </div>
+
+                <!-- Profile Image -->
+                <div id="profile-pic-container" class="relative w-[110px] h-[110px] cursor-pointer">
+                    <img id="profile-pic" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887" 
+                         alt="User Profile Picture" 
+                         class="w-full h-full rounded-full object-cover border-[6px] border-[#108942]">
+                </div>
+                
+                <!-- Success Checkmark -->
+                <div class="absolute -bottom-2.5 right-[15px] bg-white rounded-full w-8 h-8 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Main content card -->
+            <div class="relative w-full bg-[#16a34a] rounded-2xl shadow-lg text-white pt-20 pb-6 px-6 space-y-4 z-10">
+                <!-- Header Icons -->
+                <div id="close-btn" class="absolute top-4 left-4 p-1 text-white cursor-pointer">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </div>
+                <div id="share-btn" class="absolute top-4 right-4 p-1 text-white cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                    </svg>
+                </div>
+
+                <!-- User and Check-in Info -->
+                <div class="text-center">
+                    <p class="font-medium text-base">Check-in successful</p>
+                    <h2 id="user-name" class="text-4xl font-bold cursor-pointer">David Griedel</h2>
+                    <p id="user-id" class="text-gray-300 font-light mt-1 text-sm cursor-pointer">731324194</p>
+                </div>
+                
+                <div class="text-center">
+                    <p id="user-sport-main" class="font-semibold text-xl user-sport cursor-pointer">Squash</p>
+                    <p id="user-location-main" class="text-gray-200 user-location cursor-pointer">Airport Squash & Fitness</p>
+                </div>
+
+                <div class="flex justify-between items-center pt-2">
+                    <div>
+                        <p class="text-sm text-gray-200">Checked-in at</p>
+                        <p id="checked-in-date" class="font-semibold text-base cursor-pointer">Jun 11, 21:25</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="font-bold text-3xl text-white">21</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details section (part of the modal stack) -->
+            <div class="w-full bg-[#202124] rounded-2xl shadow-lg text-white p-4 -mt-10 relative z-0">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p id="user-sport-details" class="font-semibold user-sport cursor-pointer">Squash</p>
+                        <p id="user-location-details" class="text-sm text-gray-400 user-location cursor-pointer">Airport Squash & Fitness</p>
+                        <div class="flex items-center space-x-2 mt-1 text-sm text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Checked in</span>
+                        </div>
+                    </div>
+                    <button class="bg-[#3c4043] hover:bg-[#4a4e52] text-white font-semibold py-2.5 px-8 rounded-xl">
+                        View
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Data Persistence ---
+            const loadStoredData = () => {
+                const storedData = {
+                    userName: localStorage.getItem('userName') || 'David Griedel',
+                    userId: localStorage.getItem('userId') || '731324194',
+                    userSport: localStorage.getItem('userSport') || 'Squash',
+                    userLocation: localStorage.getItem('userLocation') || 'Airport Squash & Fitness',
+                    profilePicUrl: localStorage.getItem('profilePicUrl') || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887',
+                    checkedInDate: localStorage.getItem('checkedInDate') || 'Jun 11, 21:25'
+                };
+                
+                document.getElementById('user-name').textContent = storedData.userName;
+                document.getElementById('user-id').textContent = storedData.userId;
+                document.querySelectorAll('.user-sport').forEach(el => el.textContent = storedData.userSport);
+                document.querySelectorAll('.user-location').forEach(el => el.textContent = storedData.userLocation);
+                document.getElementById('profile-pic').src = storedData.profilePicUrl;
+                document.getElementById('checked-in-date').textContent = storedData.checkedInDate;
+            };
+
+            // --- Generic Long Press Editable Text Field ---
+            const makeEditableOnLongPress = (elementId, storageKey) => {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                let pressTimer;
+                const startPress = (e) => {
+                    e.preventDefault();
+                    pressTimer = setTimeout(() => {
+                        const originalClasses = element.className;
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.value = element.textContent;
+                        input.className = originalClasses.replace('cursor-pointer', '') + ' editable-input w-full';
+                        const saveAndRevert = () => {
+                            const newValue = input.value.trim() || " ";
+                            localStorage.setItem(storageKey, newValue);
+                            element.textContent = newValue;
+                            const sharedClass = storageKey === 'userSport' ? '.user-sport' : (storageKey === 'userLocation' ? '.user-location' : null);
+                            if(sharedClass) {
+                                document.querySelectorAll(sharedClass).forEach(el => el.textContent = newValue);
+                            }
+                            if (input.parentNode) input.replaceWith(element);
+                        };
+                        input.addEventListener('blur', saveAndRevert);
+                        input.addEventListener('keydown', (e) => e.key === 'Enter' ? input.blur() : (e.key === 'Escape' ? input.replaceWith(element) : null));
+                        element.replaceWith(input);
+                        input.focus();
+                        input.select();
+                    }, 600);
+                };
+                const cancelPress = () => clearTimeout(pressTimer);
+                element.addEventListener('mousedown', startPress);
+                element.addEventListener('touchstart', startPress);
+                element.addEventListener('mouseup', cancelPress);
+                element.addEventListener('mouseleave', cancelPress);
+                element.addEventListener('touchend', cancelPress);
+            };
+
+            // --- Long Press for Date/Time Update ---
+            const makeDateUpdatable = (elementId, storageKey) => {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                let pressTimer;
+                const startPress = (e) => {
+                    e.preventDefault();
+                    pressTimer = setTimeout(() => {
+                        const now = new Date();
+                        const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false };
+                        const formattedDate = new Intl.DateTimeFormat('en-US', options).format(now).replace(',', '');
+                        element.textContent = formattedDate;
+                        localStorage.setItem(storageKey, formattedDate);
+                    }, 600);
+                };
+                const cancelPress = () => clearTimeout(pressTimer);
+                element.addEventListener('mousedown', startPress);
+                element.addEventListener('touchstart', startPress);
+                element.addEventListener('mouseup', cancelPress);
+                element.addEventListener('mouseleave', cancelPress);
+                element.addEventListener('touchend', cancelPress);
+            };
+
+            // --- Long Press for Image URL Change ---
+            const makeImageEditable = (containerId, imgId, storageKey) => {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                let pressTimer;
+                const startPress = (e) => {
+                    e.preventDefault();
+                    pressTimer = setTimeout(() => {
+                        const newUrl = prompt('Enter new image URL:', document.getElementById(imgId).src);
+                        if (newUrl && newUrl.trim() !== '') {
+                            document.getElementById(imgId).src = newUrl.trim();
+                            localStorage.setItem(storageKey, newUrl.trim());
+                        }
+                    }, 600);
+                };
+                 const cancelPress = () => clearTimeout(pressTimer);
+                container.addEventListener('mousedown', startPress);
+                container.addEventListener('touchstart', startPress);
+                container.addEventListener('mouseup', cancelPress);
+                container.addEventListener('mouseleave', cancelPress);
+                container.addEventListener('touchend', cancelPress);
+            };
+            
+            // --- Share button functionality ---
+            document.getElementById('share-btn').addEventListener('click', () => {
+                console.log('Share button clicked!');
+                // Here you could implement navigator.share if the browser supports it,
+                // or copy a link to the clipboard.
+            });
+
+
+            // --- Initialization ---
+            loadStoredData();
+            makeEditableOnLongPress('user-name', 'userName');
+            makeEditableOnLongPress('user-id', 'userId');
+            makeEditableOnLongPress('user-sport-main', 'userSport');
+            makeEditableOnLongPress('user-location-main', 'userLocation');
+            makeEditableOnLongPress('user-sport-details', 'userSport');
+            makeEditableOnLongPress('user-location-details', 'userLocation');
+            makeDateUpdatable('checked-in-date', 'checkedInDate');
+            makeImageEditable('profile-pic-container', 'profile-pic', 'profilePicUrl');
+
+        });
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => console.log('ServiceWorker registration successful with scope: ', registration.scope))
+                    .catch(error => console.log('ServiceWorker registration failed: ', error));
+            });
+        }
+    </script>
+</body>
+</html>
