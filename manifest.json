@@ -2,7 +2,7 @@
     "name": "Check-in App",
     "short_name": "Check-in",
     "description": "A simple check-in application.",
-    "start_url": "/index.html",
+    "start_url": "/UrbanMockPWA/index.html",
     "display": "standalone",
     "background_color": "#333333",
     "theme_color": "#16a34a",
