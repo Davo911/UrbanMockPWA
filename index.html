@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check-in Success</title>
+    <title>Check-in</title>
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#333333">
+    <meta name="theme-color" content="#f1f5f9">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Check-in">
@@ -18,48 +18,79 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles for the app */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #333333; /* Darker background */
+            background-color: #f1f5f9;
         }
-
-        /* Keyframes for the rotation animation */
         @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-
-        /* Applying the animation to the designated class */
         .animate-spin-slow {
             animation: rotate 10s linear infinite;
         }
-
-        /* Class for the editable input fields */
         .editable-input {
             background-color: transparent;
             text-align: center;
             border-bottom: 2px solid rgba(255, 255, 255, 0.7);
             outline: none;
         }
+        body::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
-<body class="flex flex-col items-center min-h-screen p-4 pb-28 sm:pb-0">
+<body class="flex flex-col items-center min-h-screen">
 
-    <!-- Background Layer -->
-    <div class="w-full max-w-sm flex-grow flex flex-col">
+    <!-- Main Content Area -->
+    <div id="checkin-screen" class="w-full max-w-sm flex-grow flex flex-col items-center px-4 pb-24">
         <header class="w-full text-center py-4">
-            <h1 class="text-xl font-semibold text-gray-400/50">Check in</h1>
+            <h1 class="text-xl font-semibold text-gray-500">Check in</h1>
         </header>
-        <div class="flex-grow"></div> <!-- Spacer to push footer down -->
+
+        <main class="flex-grow flex flex-col items-center justify-center w-full">
+             <div class="relative w-full max-w-xs text-center">
+                 <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-56 h-56 bg-gray-200 rounded-full opacity-50"></div>
+                 </div>
+                 <img src="https://placehold.co/300x250/dbeafe/cccccc?text=Illustration" class="w-full h-auto max-w-xs mx-auto rounded-lg hidden" alt="Check in illustration">
+             </div>
+        </main>
+        
+        <div class="w-full flex justify-center -mb-7 z-10">
+            <button id="qr-scan-btn" class="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-4 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V6a2 2 0 012-2h2" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h2" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 4h2a2 2 0 012 2v2" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 20h2a2 2 0 002-2v-2" />
+                </svg>
+            </button>
+        </div>
+        
+        <div class="w-full bg-[#202124] rounded-2xl shadow-lg text-white p-4 pt-12">
+             <div class="flex justify-between items-center">
+                <div>
+                    <p class="font-semibold user-sport">Fitness</p>
+                    <p class="text-sm text-gray-400 user-location">Holmes Place Gendarmenmarkt</p>
+                    <div class="flex items-center space-x-2 mt-1 text-sm text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Checked in</span>
+                    </div>
+                </div>
+                <button class="bg-[#3c4043] hover:bg-[#4a4e52] text-white font-semibold py-2.5 px-8 rounded-xl">
+                    View
+                </button>
+            </div>
+        </div>
     </div>
-    <footer class="w-full max-w-sm bg-[#202124] fixed bottom-0 sm:relative z-30">
+
+    <!-- Footer Navigation -->
+    <footer class="w-full max-w-sm bg-[#202124] fixed bottom-0 z-30">
         <div class="flex justify-around items-center text-gray-400 py-3">
             <div class="text-center cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
@@ -80,92 +111,68 @@
         </div>
     </footer>
     
-    <!-- Modal Layer -->
-    <div class="fixed inset-0 z-10 flex items-center justify-center p-4 pointer-events-none">
-        <!-- Background placeholder image -->
-        <img src="https://placehold.co/300x150/ffffff/cccccc?text=+" class="absolute w-[280px] h-[140px] object-cover rounded-lg opacity-20" alt="background pattern"/>
-        <!-- The overlay -->
-        <div class="absolute inset-0 bg-black/10"></div>
-        
-        <!-- The actual modal content (the card stack) -->
+    <!-- SUCCESS MODAL (Initially Hidden) -->
+    <div id="success-modal" class="fixed inset-0 z-40 flex items-center justify-center p-4 bg-black/50 hidden">
         <div class="relative w-full max-w-sm pointer-events-auto">
-
-            <!-- Profile picture and decorative elements container -->
-            <div class="relative mb-[-70px] z-20 flex justify-center items-center h-[140px]">
-                <!-- Animated rotating border -->
-                <div class="absolute w-[140px] h-[140px] animate-spin-slow">
-                    <svg width="140" height="140" viewBox="0 0 140 140">
-                        <circle cx="70" cy="70" r="65" fill="none" stroke="white" stroke-width="4" stroke-dasharray="30 10" stroke-linecap="round" />
-                    </svg>
+            <div class="relative mb-[-140px] z-20 flex justify-center items-center h-[280px]">
+                <!-- Rotating Border and Checkmark Container -->
+                <div class="absolute w-[280px] h-[280px]">
+                    <div class="w-full h-full animate-spin-slow">
+                        <svg width="280" height="280" viewBox="0 0 280 280">
+                            <circle cx="140" cy="140" r="135" fill="none" stroke="white" stroke-width="6" stroke-dasharray="40 15" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <!-- Checkmark Icon -->
+                    <div class="absolute bottom-4 right-4 bg-white rounded-full w-12 h-12 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
                 </div>
-
-                <!-- Profile Image -->
-                <div id="profile-pic-container" class="relative w-[110px] h-[110px] cursor-pointer">
+                <!-- Profile Picture -->
+                <div id="profile-pic-container" class="relative w-[220px] h-[220px] cursor-pointer">
                     <img id="profile-pic" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887" 
                          alt="User Profile Picture" 
-                         class="w-full h-full rounded-full object-cover border-[6px] border-[#108942]">
-                </div>
-                
-                <!-- Success Checkmark -->
-                <div class="absolute -bottom-2.5 right-[15px] bg-white rounded-full w-8 h-8 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+                         class="w-full h-full rounded-full object-cover border-[8px] border-[#108942]">
                 </div>
             </div>
 
-            <!-- Main content card -->
-            <div class="relative w-full bg-[#16a34a] rounded-2xl shadow-lg text-white pt-20 pb-6 px-6 space-y-4 z-10">
-                <!-- Header Icons -->
+            <div class="relative w-full bg-[#16a34a] rounded-2xl shadow-lg text-white pt-40 pb-6 px-6 space-y-4 z-10">
                 <div id="close-btn" class="absolute top-4 left-4 p-1 text-white cursor-pointer">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </div>
+                <!-- Share Button -->
+                <div id="share-btn" class="absolute top-3 right-3 p-2 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
                 </div>
-                <div id="share-btn" class="absolute top-4 right-4 p-1 text-white cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-                    </svg>
-                </div>
-
-                <!-- User and Check-in Info -->
                 <div class="text-center">
                     <p class="font-medium text-base">Check-in successful</p>
-                    <h2 id="user-name" class="text-4xl font-bold cursor-pointer">David Griedel</h2>
-                    <p id="user-id" class="text-gray-300 font-light mt-1 text-sm cursor-pointer">731324194</p>
+                    <h2 id="user-name" class="text-4xl font-extrabold cursor-pointer">David Griedel</h2>
+                    <p id="user-id" class="text-base font-semibold text-gray-200 mt-1 cursor-pointer">731324194</p>
                 </div>
-                
                 <div class="text-center">
-                    <p id="user-sport-main" class="font-semibold text-xl user-sport cursor-pointer">Squash</p>
-                    <p id="user-location-main" class="text-gray-200 user-location cursor-pointer">Airport Squash & Fitness</p>
+                    <p id="user-sport-main" class="font-bold text-xl user-sport cursor-pointer">Squash</p>
+                    <p id="user-location-main" class="font-bold text-gray-200 user-location cursor-pointer">Airport Squash & Fitness</p>
                 </div>
-
                 <div class="flex justify-between items-center pt-2">
                     <div>
-                        <p class="text-sm text-gray-200">Checked-in at</p>
-                        <p id="checked-in-date" class="font-semibold text-base cursor-pointer">Jun 11, 21:25</p>
+                        <p class="text-sm text-green-200">Checked-in at</p>
+                        <p id="checked-in-date" class="font-bold text-base cursor-pointer">Jun 11, 21:25</p>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span class="font-bold text-3xl text-white">21</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span id="checkin-timer" class="font-bold text-2xl text-white">00:00</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Details section (part of the modal stack) -->
             <div class="w-full bg-[#202124] rounded-2xl shadow-lg text-white p-4 -mt-10 relative z-0">
                 <div class="flex justify-between items-center">
                     <div>
                         <p id="user-sport-details" class="font-semibold user-sport cursor-pointer">Squash</p>
                         <p id="user-location-details" class="text-sm text-gray-400 user-location cursor-pointer">Airport Squash & Fitness</p>
-                        <div class="flex items-center space-x-2 mt-1 text-sm text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Checked in</span>
-                        </div>
                     </div>
                     <button class="bg-[#3c4043] hover:bg-[#4a4e52] text-white font-semibold py-2.5 px-8 rounded-xl">
                         View
@@ -175,9 +182,55 @@
         </div>
     </div>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const successModal = document.getElementById('success-modal');
+            const qrScanBtn = document.getElementById('qr-scan-btn');
+            const closeBtn = document.getElementById('close-btn');
+
+            let timerInterval = null;
+
+            // --- Timer Logic ---
+            const startTimer = () => {
+                const timerElement = document.getElementById('checkin-timer');
+                let seconds = 0;
+                
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+                    const secs = (seconds % 60).toString().padStart(2, '0');
+                    timerElement.textContent = `${mins}:${secs}`;
+                }, 1000);
+            };
+
+            const stopTimer = () => {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+                timerInterval = null;
+                document.getElementById('checkin-timer').textContent = '00:00';
+            };
+
+            // --- App State Management ---
+            const showSuccessModal = () => {
+                successModal.classList.remove('hidden');
+                document.body.style.backgroundColor = '#333333';
+                startTimer();
+            };
+
+            const hideSuccessModal = () => {
+                successModal.classList.add('hidden');
+                document.body.style.backgroundColor = '#f1f5f9';
+                stopTimer();
+            };
+            
+            qrScanBtn.addEventListener('click', showSuccessModal);
+            closeBtn.addEventListener('click', hideSuccessModal);
+
             // --- Data Persistence ---
             const loadStoredData = () => {
                 const storedData = {
@@ -191,13 +244,25 @@
                 
                 document.getElementById('user-name').textContent = storedData.userName;
                 document.getElementById('user-id').textContent = storedData.userId;
-                document.querySelectorAll('.user-sport').forEach(el => el.textContent = storedData.userSport);
-                document.querySelectorAll('.user-location').forEach(el => el.textContent = storedData.userLocation);
+                document.querySelectorAll('.user-sport').forEach(el => {
+                    if (el.closest('#checkin-screen')) {
+                        el.textContent = 'Fitness';
+                    } else {
+                        el.textContent = storedData.userSport;
+                    }
+                });
+                document.querySelectorAll('.user-location').forEach(el => {
+                     if (el.closest('#checkin-screen')) {
+                        el.textContent = 'Holmes Place Gendarmenmarkt';
+                    } else {
+                       el.textContent = storedData.userLocation;
+                    }
+                });
                 document.getElementById('profile-pic').src = storedData.profilePicUrl;
                 document.getElementById('checked-in-date').textContent = storedData.checkedInDate;
             };
 
-            // --- Generic Long Press Editable Text Field ---
+            // --- Editable Fields Logic ---
             const makeEditableOnLongPress = (elementId, storageKey) => {
                 const element = document.getElementById(elementId);
                 if (!element) return;
@@ -235,7 +300,6 @@
                 element.addEventListener('touchend', cancelPress);
             };
 
-            // --- Long Press for Date/Time Update ---
             const makeDateUpdatable = (elementId, storageKey) => {
                 const element = document.getElementById(elementId);
                 if (!element) return;
@@ -258,7 +322,6 @@
                 element.addEventListener('touchend', cancelPress);
             };
 
-            // --- Long Press for Image URL Change ---
             const makeImageEditable = (containerId, imgId, storageKey) => {
                 const container = document.getElementById(containerId);
                 if (!container) return;
@@ -277,39 +340,4 @@
                 container.addEventListener('mousedown', startPress);
                 container.addEventListener('touchstart', startPress);
                 container.addEventListener('mouseup', cancelPress);
-                container.addEventListener('mouseleave', cancelPress);
-                container.addEventListener('touchend', cancelPress);
-            };
-            
-            // --- Share button functionality ---
-            document.getElementById('share-btn').addEventListener('click', () => {
-                console.log('Share button clicked!');
-                // Here you could implement navigator.share if the browser supports it,
-                // or copy a link to the clipboard.
-            });
-
-
-            // --- Initialization ---
-            loadStoredData();
-            makeEditableOnLongPress('user-name', 'userName');
-            makeEditableOnLongPress('user-id', 'userId');
-            makeEditableOnLongPress('user-sport-main', 'userSport');
-            makeEditableOnLongPress('user-location-main', 'userLocation');
-            makeEditableOnLongPress('user-sport-details', 'userSport');
-            makeEditableOnLongPress('user-location-details', 'userLocation');
-            makeDateUpdatable('checked-in-date', 'checkedInDate');
-            makeImageEditable('profile-pic-container', 'profile-pic', 'profilePicUrl');
-
-        });
-
-        // PWA Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/UrbanMockPWA/sw.js')
-                    .then(registration => console.log('ServiceWorker registration successful with scope: ', registration.scope))
-                    .catch(error => console.log('ServiceWorker registration failed: ', error));
-            });
-        }
-    </script>
-</body>
-</html>
+              
