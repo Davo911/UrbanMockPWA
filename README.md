@@ -1,1 +1,1 @@
-ressources
+Vibecode Zone ONLY
