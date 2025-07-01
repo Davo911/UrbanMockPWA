@@ -1,23 +1,21 @@
 {
-    "name": "Check-in App",
-    "short_name": "Check-in",
+    "name": "UrbanSportsMock",
+    "short_name": "UB",
     "description": "A simple check-in application.",
-    "start_url": "/UrbanMockPWA/index.html",
+    "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#333333",
-    "theme_color": "#16a34a",
+    "background_color": "#111111",
+    "theme_color": "#ffffff",
     "icons": [
       {
-        "src": "https://placehold.co/192x192/16a34a/ffffff?text=App",
+        "src": "/icons/us_192.png",
         "sizes": "192x192",
-        "type": "image/png",
-        "purpose": "any maskable"
+        "type": "image/png"
       },
       {
-        "src": "https://placehold.co/512x512/16a34a/ffffff?text=App",
+        "src": "/icons/us_512.png",
         "sizes": "512x512",
         "type": "image/png"
       }
     ]
   }
-  
