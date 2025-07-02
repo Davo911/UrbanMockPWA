@@ -7,7 +7,7 @@
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#f1f5f9">
+    <meta name="theme-color" content="#EDF2FD">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Check-in">
@@ -22,7 +22,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f1f5f9;
+            background-color: #EDF2FD;
         }
         @keyframes rotate {
             from { transform: rotate(0deg); }
@@ -55,7 +55,7 @@
                  <div class="absolute inset-0 flex items-center justify-center">
                     <div class="w-56 h-56 bg-gray-200 rounded-full opacity-50"></div>
                  </div>
-                 <img src="https://placehold.co/300x250/dbeafe/cccccc?text=Illustration" class="w-full h-auto max-w-xs mx-auto rounded-lg hidden" alt="Check in illustration">
+                 <img src="/res/background.png" class="w-full h-auto max-w-xs mx-auto rounded-lg hidden" alt="Check in illustration">
              </div>
         </main>
         
@@ -224,7 +224,7 @@
 
             const hideSuccessModal = () => {
                 successModal.classList.add('hidden');
-                document.body.style.backgroundColor = '#f1f5f9';
+                document.body.style.backgroundColor = '#EDF2FD';
                 stopTimer();
             };
             
