@@ -2,18 +2,19 @@
     "name": "UrbanSportsMock",
     "short_name": "UB",
     "description": "A simple check-in application.",
-    "start_url": "/index.html",
+    "start_url": ".",
+    "scope": ".",
     "display": "standalone",
     "background_color": "#111111",
     "theme_color": "#ffffff",
     "icons": [
       {
-        "src": "/icons/us_192.png",
+        "src": "./icons/us_192.png",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "/icons/us_512.png",
+        "src": "./icons/us_512.png",
         "sizes": "512x512",
         "type": "image/png"
       }
