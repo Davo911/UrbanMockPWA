@@ -22,7 +22,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #EDF2FD;
+            /* Start with the dark background since the modal is visible first */
+            background-color: #333333;
         }
         @keyframes rotate {
             from { transform: rotate(0deg); }
@@ -44,8 +45,8 @@
 </head>
 <body class="flex flex-col items-center min-h-screen">
 
-    <!-- Main Content Area -->
-    <div id="checkin-screen" class="w-full max-w-sm flex-grow flex flex-col items-center px-4 pb-24">
+    <!-- Main Content Area (Initially Hidden) -->
+    <div id="checkin-screen" class="w-full max-w-sm flex-grow flex flex-col items-center px-4 pb-24 hidden">
         <header class="w-full text-center py-4">
             <h1 class="text-xl font-semibold text-gray-500">Check in</h1>
         </header>
@@ -111,10 +112,11 @@
         </div>
     </footer>
     
-    <!-- SUCCESS MODAL (Initially Hidden) -->
-    <div id="success-modal" class="fixed inset-0 z-40 flex justify-center items-start pt-16 bg-black/50 hidden">
-        <div class="relative w-full max-w-sm pointer-events-auto">
-            <div class="relative mb-[-140px] z-20 flex justify-center items-center h-[280px]">
+    <!-- SUCCESS MODAL (Initially Visible) -->
+    <div id="success-modal" class="fixed inset-0 z-40 flex justify-center items-start pt-16 bg-black/50">
+        <div class="relative w-full max-w-sm">
+            <!-- This container is now 'pointer-events-none' to let clicks pass through -->
+            <div class="relative mb-[-140px] z-20 flex justify-center items-center h-[280px] pointer-events-none">
                 <!-- Rotating Border and Checkmark Container -->
                 <div class="absolute w-[280px] h-[280px]">
                     <!-- Static Dashed Circle -->
@@ -129,8 +131,8 @@
                     </div>
 
                 </div>
-                <!-- Profile Picture -->
-                <div id="profile-pic-container" class="relative w-[220px] h-[220px] cursor-pointer">
+                <!-- Profile Picture Container is 'pointer-events-auto' to remain clickable -->
+                <div id="profile-pic-container" class="relative w-[220px] h-[220px] cursor-pointer pointer-events-auto">
                     <img id="profile-pic" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887" 
                          alt="User Profile Picture" 
                          class="w-full h-full rounded-full object-cover border-[8px] border-[#108942]">
@@ -143,12 +145,13 @@
                 </div>
             </div>
 
+            <!-- This green card now allows clicks on its buttons -->
             <div class="relative w-full bg-[#16a34a] rounded-2xl shadow-lg text-white pt-40 pb-6 px-6 space-y-4 z-10">
                 <div id="close-btn" class="absolute top-4 left-4 p-1 text-white cursor-pointer">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                 </div>
                 <!-- Share Button -->
-                <div id="share-btn" class="absolute top-3 right-3 p-2 cursor-pointer">
+                <div id="share-btn" class="absolute top-0 right-4 p-1 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
@@ -179,6 +182,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const successModal = document.getElementById('success-modal');
+            const checkinScreen = document.getElementById('checkin-screen');
             const qrScanBtn = document.getElementById('qr-scan-btn');
             const closeBtn = document.getElementById('close-btn');
 
@@ -212,16 +216,19 @@
             // --- App State Management ---
             const showSuccessModal = () => {
                 successModal.classList.remove('hidden');
+                checkinScreen.classList.add('hidden');
                 document.body.style.backgroundColor = '#333333';
                 startTimer();
             };
 
             const hideSuccessModal = () => {
                 successModal.classList.add('hidden');
+                checkinScreen.classList.remove('hidden');
                 document.body.style.backgroundColor = '#EDF2FD';
                 stopTimer();
             };
             
+            // Event Listeners
             qrScanBtn.addEventListener('click', showSuccessModal);
             closeBtn.addEventListener('click', hideSuccessModal);
 
@@ -360,6 +367,7 @@
             
             // --- Initialization ---
             loadStoredData();
+            startTimer(); // Start the timer since the modal is visible on load
             makeEditableOnLongPress('user-name', 'userName');
             makeEditableOnLongPress('user-id', 'userId');
             makeEditableOnLongPress('user-sport-main', 'userSport');
