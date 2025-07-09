@@ -41,36 +41,43 @@
         body::-webkit-scrollbar {
             display: none;
         }
+        .invisible {
+            visibility: hidden;
+        }
     </style>
 </head>
 <body class="flex flex-col items-center min-h-screen">
 
-    <!-- Main Content Area (Initially Hidden) -->
-    <div id="checkin-screen" class="w-full max-w-sm flex-grow flex flex-col items-center px-4 pb-24 hidden">
-        <header class="w-full text-center py-4">
-            <h1 class="text-xl font-semibold text-gray-500">Check in</h1>
-        </header>
+    <!-- Main Content Area -->
+    <div id="checkin-screen" class="w-full max-w-sm flex-grow flex flex-col items-center px-4 pb-24">
+        <!-- This part will be toggled -->
+        <div id="checkin-interactive-part" class="w-full flex-grow flex flex-col items-center invisible">
+            <header class="w-full text-center py-4">
+                <h1 class="text-xl font-semibold text-gray-500">Check in</h1>
+            </header>
 
-        <main class="flex-grow flex flex-col items-center justify-center w-full">
-             <div class="relative w-full max-w-xs text-center">
-                 <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="w-56 h-56 bg-gray-200 rounded-full opacity-50"></div>
+            <main class="flex-grow flex flex-col items-center justify-center w-full">
+                 <div class="relative w-full max-w-xs text-center">
+                     <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-56 h-56 bg-gray-200 rounded-full opacity-50"></div>
+                     </div>
+                     <img src="https://placehold.co/300x250/dbeafe/cccccc?text=Illustration" class="w-full h-auto max-w-xs mx-auto rounded-lg hidden" alt="Check in illustration">
                  </div>
-                 <img src="https://placehold.co/300x250/dbeafe/cccccc?text=Illustration" class="w-full h-auto max-w-xs mx-auto rounded-lg hidden" alt="Check in illustration">
-             </div>
-        </main>
-        
-        <div class="w-full flex justify-center -mb-7 z-10">
-            <button id="qr-scan-btn" class="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-4 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V6a2 2 0 012-2h2" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h2" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 4h2a2 2 0 012 2v2" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 20h2a2 2 0 002-2v-2" />
-                </svg>
-            </button>
+            </main>
+            
+            <div class="w-full flex justify-center -mb-7 z-10">
+                <button id="qr-scan-btn" class="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-4 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V6a2 2 0 012-2h2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 4h2a2 2 0 012 2v2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 20h2a2 2 0 002-2v-2" />
+                    </svg>
+                </button>
+            </div>
         </div>
         
+        <!-- This card will always be visible in the background -->
         <div class="w-full bg-[#202124] rounded-2xl shadow-lg text-white p-4 pt-12">
              <div class="flex justify-between items-center">
                 <div>
@@ -182,7 +189,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const successModal = document.getElementById('success-modal');
-            const checkinScreen = document.getElementById('checkin-screen');
+            const checkinInteractivePart = document.getElementById('checkin-interactive-part');
             const qrScanBtn = document.getElementById('qr-scan-btn');
             const closeBtn = document.getElementById('close-btn');
 
@@ -216,14 +223,14 @@
             // --- App State Management ---
             const showSuccessModal = () => {
                 successModal.classList.remove('hidden');
-                checkinScreen.classList.add('hidden');
+                checkinInteractivePart.classList.add('invisible');
                 document.body.style.backgroundColor = '#333333';
                 startTimer();
             };
 
             const hideSuccessModal = () => {
                 successModal.classList.add('hidden');
-                checkinScreen.classList.remove('hidden');
+                checkinInteractivePart.classList.remove('invisible');
                 document.body.style.backgroundColor = '#EDF2FD';
                 stopTimer();
             };
